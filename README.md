@@ -65,7 +65,7 @@ docker compose up -d --build
 ```
 
 - Data is stored in the `tasker-data` volume at `/data/tasker.db`.
-- The container listens on `127.0.0.1:3000` only. Put nginx in front of it with TLS: HTTPS is required for installing the PWA, for the service worker and for secure cookies.
+- The container is published on `127.0.0.1:19270` only. Put nginx in front of it with TLS: HTTPS is required for installing the PWA, for the service worker and for secure cookies.
 
 #### nginx
 
