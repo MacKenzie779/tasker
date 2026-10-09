@@ -1,0 +1,19 @@
+services:
+  tasker:
+    build: .
+    restart: unless-stopped
+    ports:
+      # only reachable from this host; nginx (deploy/nginx/tasker.conf) is the public entry point
+      - '127.0.0.1:3000:3000'
+    environment:
+      TASKER_PASSWORD: ${TASKER_PASSWORD:?set TASKER_PASSWORD in .env or the environment}
+      TZ: ${TZ:-UTC}
+      # Meant to run behind a TLS reverse proxy (Caddy, Traefik, nginx) that sets these headers.
+      # Without a protocol header the app assumes https.
+      PROTOCOL_HEADER: x-forwarded-proto
+      HOST_HEADER: x-forwarded-host
+    volumes:
+      - tasker-data:/data
+
+volumes:
+  tasker-data:
